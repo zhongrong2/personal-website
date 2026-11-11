@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="钟荣 · 前端开发工程师个人简历与项目作品集" />
+  <title>钟荣 · 前端开发工程师 | 简历与项目作品集</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338bdf8'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-size='30' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3EZ%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- 导航 -->
+  <header id="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero"><span class="logo-dot">Z</span>钟荣 · 前端开发</a>
+      <nav id="navLinks"></nav>
+      <button id="navBurger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- 首页 Hero -->
+  <section id="hero">
+    <canvas id="particles"></canvas>
+    <div class="hero-grid-lines"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-tag"><span class="pulse"></span>OPEN TO WORK · 2026</div>
+      <h1 id="heroName"></h1>
+      <div id="heroTitle"></div>
+      <p id="heroIntro"></p>
+      <div id="heroMeta"></div>
+      <div id="heroStats"></div>
+      <div id="heroCta" class="hero-cta"></div>
+    </div>
+    <div class="scroll-hint">SCROLL</div>
+  </section>
+
+  <!-- 项目作品（核心板块） -->
+  <section id="projects" class="block">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Portfolio · Featured Work</div>
+        <h2 class="sec-title">项目作品展示</h2>
+        <p style="color: var(--text-3); font-size: 14px; margin-top: 8px;">
+          项目均部署于内网环境。以下为重点页面截图示意，点击卡片查看完整项目介绍，点击截图可左右切换放大浏览。
+        </p>
+      </div>
+      <div id="projectFilters"></div>
+      <div id="projectGrid"></div>
+    </div>
+  </section>
+
+  <!-- 关于我 -->
+  <section id="about" class="block alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">About Me</div>
+        <h2 class="sec-title">关于我 · 个人优势</h2>
+      </div>
+      <div class="about-layout">
+        <div class="about-panel reveal">
+          <p id="aboutIntro"></p>
+          <div class="about-facts">
+            <div class="fact"><b>毕业院校</b><span>北京交通大学</span></div>
+            <div class="fact"><b>专业</b><span>计算机科学与技术</span></div>
+            <div class="fact"><b>求职意向</b><span>前端开发工程师</span></div>
+            <div class="fact"><b>求职状态</b><span>可立即到岗</span></div>
+          </div>
+        </div>
+        <div id="strengths"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 专业技能 -->
+  <section id="skills" class="block">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Skills</div>
+        <h2 class="sec-title">专业技能</h2>
+      </div>
+      <div id="skillGrid"></div>
+    </div>
+  </section>
+
+  <!-- 工作经历 -->
+  <section id="exp" class="block alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Experience</div>
+        <h2 class="sec-title">工作经历</h2>
+      </div>
+      <div id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section id="contact" class="block alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">Contact</div>
+        <h2 class="sec-title">联系我</h2>
+      </div>
+      <div id="contactCards"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-line"></div>
+    <p id="footerNote"></p>
+  </footer>
+
+  <!-- 项目详情弹窗 -->
+  <div id="modal" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <button id="modalClose" aria-label="关闭">✕</button>
+      <div id="modalBody"></div>
+      <div class="modal-foot"></div>
+    </div>
+  </div>
+
+  <!-- 大图预览 -->
+  <div id="lightbox">
+    <button class="lb-nav" id="lbPrev" aria-label="上一张">‹</button>
+    <img id="lightboxImg" alt="" />
+    <button class="lb-nav" id="lbNext" aria-label="下一张">›</button>
+    <p id="lightboxCap"></p>
+    <span id="lbCount"></span>
+  </div>
+
+  <button id="backTop" aria-label="返回顶部">↑</button>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/mock.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
