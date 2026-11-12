@@ -11,6 +11,6 @@
   distribution-1.webp ~ distribution-2.webp        （商户分销公众号平台）
   member-center-1.webp ~ member-center-2.webp      （会员中心公众号应用）
   ding-approval-1.webp ~ ding-approval-2.webp      （财务审批钉钉小程序）
-# 缩略图：<项目id>-<序号>-thumb.webp（弹窗网格用，宽 1120，560×360 比例）；大图供灯箱用，宽 ≤1600、高 ≤2200
-# 格式统一 WebP（q78/82），原 PNG 备份见工作区 backup/screenshots-png-original
+# 缩略图：<项目id>-<序号>-thumb.webp（弹窗网格用，宽 ≤600，560×360 比例）；大图供灯箱用，宽 ≤1000
+# 格式统一 WebP（缩略图 q80 / 大图 q82），原 PNG 备份见工作区 backup/screenshots-png-original
 # 未提供的序号会自动回退到内置生成的示意图。
