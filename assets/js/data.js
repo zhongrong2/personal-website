@@ -129,11 +129,11 @@ const PROJECTS = [
     tech: ["Vue 3", "TypeScript", "Element Plus", "SCSS", "ECharts", "SSE (EventSource / fetch stream)", "Axios", "vue-tsc"],
     shots: [
       { type: "chat", title: "AI 智能问答 · SSE 流式输出 + RAG 引用溯源" },
-      { type: "dashboard", title: "用户门户 · 数据总览" },
-      { type: "graph", title: "舆情详情 · 三层实体知识图谱" },
-      { type: "admin", title: "管理后台 · 内容模块与权限字典" },
       { type: "bigscreen", title: "态势感知大屏 · 全球轨道散点 + HUD" },
-      { type: "globe", title: "情报可视化监控 · 轨道态势" },
+      { type: "graph", title: "舆情详情 · 三层实体知识图谱" },
+      { type: "admin", title: "报告中心详情 · AI 摘要 + 报告结构导图" },
+      { type: "dashboard", title: "天基装备百科 · 装备详情页" },
+      { type: "chat", title: "智能翻译 · 术语库约束机器翻译" },
     ],
   },
   {
@@ -143,9 +143,10 @@ const PROJECTS = [
     accent: "#818cf8",
     period: "2023 — 2025",
     role: "前端架构师 · 从 0 主导技术选型与架构分层",
-    summary: "面向军队院校与教育主管单位的多层级课程与教材建设项目管理平台，覆盖 50+ 业务子模块、400+ 页面，支撑多单位、多角色的在线申报与审批协同。",
+    summary: "面向军队院校与教育主管单位的多层级课程与教材建设项目管理平台，覆盖 50+ 业务子模块、400+ 页面；管理端支撑多单位多角色在线申报审批，配套「研本学评」学习门户覆盖教学全场景。",
     description: [
       "多层级（部级 / 省级 / 校级）课程与教材建设项目管理平台，打通「立项申报 → 培育 → 认定 → 发布」四阶段全生命周期闭环，横向承载专家评审与 AI 知识图谱两大子系统，替代原有线下填报与人工汇总流程。",
+      "平台同时包含面向学员的「研本学评」学习门户：教材视频（8 章线上授课）、在线题库与同学互助、802 个多格式教学资源聚合、教学互动讨论区，以及 AI 智慧课程（学情分析 + AI 出题）与课程知识链接图谱，覆盖「教 · 学 · 评」完整闭环——下方截图即门户端重点页面。",
       "以「计划下达 + 过程模板 + 动态表单 + 里程碑流程」为架构底座，自研配置化表单引擎与 LogicFlow 流程编排解决业务高频变更问题；用 AntV G6 深度定制图谱可视化；用 SSE 流式方案支撑 AI 交互——三者构成本项目的技术壁垒，也是本人主导设计与落地的部分。",
       "从 0 主导前端技术选型与架构分层，负责三大核心方案的设计与攻坚，并制定目录规范、组件复用协议与 Code Review 机制。",
     ],
@@ -154,17 +155,21 @@ const PROJECTS = [
       { t: "LogicFlow 流程编排设计器", d: "扩展 8 类自定义节点 + 自定义贝塞尔连线，集成 Menu / MiniMap / Snapshot 插件与节点属性面板；节点与里程碑强绑定校验，并行网关自动做出入度合法性校验，图数据序列化为 configJson 存储，支持保存、回显与多业务复用。" },
       { t: "知识图谱可视化（项目最高难度模块）", d: "自定义 ROOT 节点三重呼吸波纹、沿边流动小球动画、平行边自动偏移、邻居高亮 / 暗淡状态机；force2 + concentric + 聚类力多级布局，千级节点图谱保持可交互；将 40KB+ 画布逻辑抽象为参数化图谱组件，一套实现覆盖 4 类业务，实现画布 ↔ 过滤面板 ↔ 路径查询三联动。" },
       { t: "AI 流式交互体系", d: "统一 SSE 接入层：对话 / 写作 / 思维导图基于 fetch-event-source 实现 POST + Bearer 流式传输，AbortController 统一中止；markdown-it + highlight.js 输出即渲染，思维导图采用「流式先渲染文本 → 结束再成图」策略，支持 SVG → PNG 导出。" },
+      { t: "研本学评学习门户", d: "面向学员的「教 · 学 · 评」一体化门户：8 章线上授课视频、在线题库（章节卡片 + 同学互助问答）、802 个多格式教学资源聚合、讨论区与学习小组；AI 智慧课程提供学情分析与 AI 出题入口，知识链接复用管理端同一套参数化图谱组件实现课程实体关联检索，两端共享组件层零重复开发。" },
       { t: "专家评审子系统", d: "多轮次评审、评分项树形权重表、专家分组与任务切分（行拖拽排序）、打分 / 投票 / 排名三种评审模式与电子签名闭环；bignumber.js 定点运算实现 Σ(分值 × 权重) 高精度累加，从底层消除浮点误差导致的成绩公示争议。" },
       { t: "工程化底座", d: "terser + drop_console、echarts 独立分包、依赖预构建、gzip、按需引入；主导 ESLint / Stylelint / commitlint 规范落地；ECharts 8 图联动 + echarts-gl 3D 曲面饼图统计大屏。" },
     ],
     tech: ["Vue3", "TypeScript", "Vite", "Element Plus", "Pinia", "AntV G6", "Cytoscape", "D3", "echarts-gl", "LogicFlow", "form-create 3.x", "TinyMCE / WangEditor", "pdfjs / jsPDF", "bignumber.js"],
     shots: [
-      { type: "admin", title: "申报管理后台 · 多层级项目申报" },
-      { type: "flow", title: "LogicFlow 流程编排设计器 · 里程碑绑定" },
-      { type: "graph", title: "AI 知识图谱 · 千级节点力导向布局" },
-      { type: "dashboard", title: "建设进展综合态势 · 8 图联动大屏" },
-      { type: "chat", title: "AI 对话 / 写作 · 流式渲染 + 思维导图" },
-      { type: "admin", title: "专家评审子系统 · 多轮次权重打分" },
+      { type: "dashboard", title: "平台门户首页 · 知识图谱 AI 赋能 + 课程筛选" },
+      { type: "dashboard", title: "教材首页 · 课程核心数据与学习进度" },
+      { type: "admin", title: "教材设计 · 课程目标与教学进度表" },
+      { type: "dashboard", title: "教材视频 · 8 章线上授课视频" },
+      { type: "admin", title: "试题库 · 在线题库与同学互助" },
+      { type: "admin", title: "教学资源 · 802 个多格式资源聚合" },
+      { type: "chat", title: "教学互动 · 讨论区与学习小组" },
+      { type: "chat", title: "AI 智慧课程 · 学情分析与 AI 出题" },
+      { type: "graph", title: "知识链接 · 多实体知识图谱筛选" },
     ],
   },
   {
@@ -187,9 +192,43 @@ const PROJECTS = [
     tech: ["Vue3", "TypeScript", "Element Plus", "SCSS", "原生 WebSocket", "v-annotator 二次封装", "RuoYi-Vue 二次开发", "file-saver", "ECharts"],
     shots: [
       { type: "annotate", title: "在线标注工作台 · 实体关系划词标注" },
-      { type: "admin", title: "标注项目管理 · 成员 / 数据集 / 标签" },
+      { type: "admin", title: "标注项目管理 · 多类型项目列表" },
+      { type: "admin", title: "标注管理 · 数据集状态与实体 / 关系数" },
       { type: "dashboard", title: "首页数据看板 · 标注趋势统计" },
       { type: "chat", title: "自动标注 · 模型预标注 + 人工修正" },
+    ],
+  },
+  {
+    id: "carrier-kb",
+    name: "强敌航母专题知识库",
+    sub: "军事情报专题门户 · PC 端",
+    cat: ["platform", "visual"],
+    accent: "#e879f9",
+    period: "2025",
+    role: "门户侧前端负责人 · 约 35 个页面组件独立开发",
+    summary: "面向军事情报分析领域的航母专题门户系统，整合装备、事件、政策、报告、人物等 8 类多源情报，提供统一检索与知识图谱分析能力，免登录门户 + 后台管理双形态。",
+    description: [
+      "面向军事情报分析领域的专题门户系统，围绕「航母」这一分析对象，整合装备资料、军事事件、战略政策、智库报告、新闻动态、重点人物、组织机构、影像专题等多源情报数据，提供统一的检索与知识图谱分析能力。",
+      "系统采用免登录门户 + 后台管理双形态架构：门户侧面向情报浏览与检索，全站 20+ 页面无需登录即可访问；管理侧基于芋道（yudao）开源框架保留用户、权限、工作流等后台能力，并进行了门户化改造（自定义 layoutWeb 布局、根路由直接挂载门户首页）。",
+      "核心亮点是知识图谱可视化分析：基于 @antv/G6 实现航母装备知识图谱，支持节点筛选、层级控制、分析主体切换、实体详情联动；配合 D3 实现力导向图 / 树形图，首页提供实体与关系统计看板（ECharts）；并包含舰队力量部署与轨迹跟踪模块（Leaflet 地图轨迹渲染、时间轴筛选、图层透明度控制）。",
+      "项目基于 yudao-ui-admin-vue3 二次开发，本人负责门户侧全部前端功能的设计与开发（约 35 个页面组件），完成了从静态 mock 数据到真实 API 接口的对接与切换。",
+    ],
+    highlights: [
+      { t: "门户架构搭建", d: "设计 layoutWeb 独立门户布局（与后台布局隔离），改造路由守卫实现门户页免登录访问（isLogin: false 白名单机制），静态注册 20+ 门户路由并导出全路径列表用于权限校验。" },
+      { t: "航母知识图谱（核心模块）", d: "开发航母装备专题详情页与 G6 知识图谱组件（核心文件超 50KB），实现图谱节点 / 层级 / 分析主体的筛选面板、节点点击联动实体详情、缩放平移交互，并设计 JSON 图谱数据结构（11 个数据文件）。" },
+      { t: "力量部署与轨迹跟踪", d: "基于 Leaflet 封装通用轨迹组件 Trajectory，实现舰船航迹绘制、时间范围筛选、地图瓦片图层加载与透明度调节面板，支撑舰船动态监测场景。" },
+      { t: "情报内容模块", d: "开发军事事件、新闻、战略政策、智库报告、组织机构、重点人物、影像专题、AI 视频播放（自定义视频控制条）等 10+ 列表 / 详情页，抽象通用列表页与卡片组件复用。" },
+      { t: "全局检索与统计看板", d: "实现跨模块全局搜索与检索结果实体详情页，支持多类型情报数据的统一查询展示；将框架默认首页改造为情报数据看板，基于封装的 ECharts 组件展示实体 / 关系统计数据。" },
+    ],
+    tech: ["Vue3", "TypeScript", "Element Plus", "SCSS", "@antv/G6", "D3", "ECharts", "Leaflet", "Cesium", "芋道 yudao"],
+    shots: [
+      { type: "bigscreen", title: "航母态势 · 全球部署与航迹跟踪（Leaflet 轨迹）" },
+      { type: "admin", title: "新闻动态 · 多源情报聚合与检索" },
+      { type: "article", title: "新闻详情 · AI 摘要与译文对照" },
+      { type: "list", title: "重点人物 · 指挥官谱系与人物档案" },
+      { type: "graph", title: "组织机构 · 编制架构树形图谱（D3）" },
+      { type: "list", title: "战略政策与作战条令 · 条令文件库" },
+      { type: "gallery", title: "影像专题 · 装备影像图集检索浏览" },
     ],
   },
   {
@@ -213,10 +252,13 @@ const PROJECTS = [
     ],
     tech: ["Vue3", "TypeScript", "Element Plus", "G6", "cytoscape", "d3", "ECharts", "Cesium", "AntV G2", "EventSource (SSE)", "jsPDF", "jszip"],
     shots: [
-      { type: "graph", title: "多层级关系图谱 · 右键菜单 / 聚焦高亮" },
+      { type: "graph", title: "可视化建模 · 实体类型与关系图谱构建" },
+      { type: "graph", title: "多层级关系图谱 · 实体分类全景" },
+      { type: "graph", title: "事件时间轴 · 情报时序关联" },
       { type: "globe", title: "Cesium 三维地球 · 部署标注与卫星轨道" },
       { type: "dashboard", title: "多维度统计看板 · 11 类图表组件" },
       { type: "admin", title: "全文检索 · 实体详情关联图谱" },
+      { type: "globe", title: "重点装备 · 装备图集检索浏览" },
       { type: "chat", title: "AI 智能问答 · 问答—图谱联动" },
     ],
   },
@@ -243,8 +285,9 @@ const PROJECTS = [
     shots: [
       { type: "bigscreen", title: "区域医疗数据总览大屏 · 省—市—院三级" },
       { type: "dashboard", title: "疾病术式分析评价 · 基线表 / SMD / P 值" },
-      { type: "bigscreen2", title: "医用耗材价值评价大屏 · TOP10 榜单" },
-      { type: "bigscreen", title: "省级 DRG/DIP 支付改革大屏" },
+      { type: "bigscreen2", title: "医用耗材价值评价 · 临床 / 经济 / 社会价值" },
+      { type: "bigscreen", title: "省级 DRG/DIP 支付改革大屏（安徽省）" },
+      { type: "bigscreen2", title: "地市级大屏（六安市）· DRG/DIP 绩效分析" },
     ],
   },
   {
@@ -262,8 +305,6 @@ const PROJECTS = [
     ],
     tech: ["Vue2", "uni-app", "H5", "微信小程序", "Node.js"],
     shots: [
-      { type: "mobile", title: "H5 / 小程序双端 · 油站与订单" },
-      { type: "mobile", title: "会员中心 · 充值与优惠券" },
     ],
   },
   {
@@ -281,8 +322,6 @@ const PROJECTS = [
     ],
     tech: ["Vue", "Vant", "微信小程序", "第三方平台接入"],
     shots: [
-      { type: "mobile", title: "加油服务主流程页面" },
-      { type: "mobile", title: "充值与优惠券服务" },
     ],
   },
   {
@@ -300,8 +339,6 @@ const PROJECTS = [
     ],
     tech: ["Vue", "微信公众号 H5", "微信 SDK"],
     shots: [
-      { type: "mobile", title: "C 端用户端 · 购卡充值" },
-      { type: "mobile", title: "B 端商户端 · 分销收益" },
     ],
   },
   {
@@ -319,8 +356,6 @@ const PROJECTS = [
     ],
     tech: ["Vue", "微信公众号", "微信 SDK", "微信支付"],
     shots: [
-      { type: "mobile", title: "会员商城 · 积分与营销活动" },
-      { type: "mobile", title: "会员认证与投诉反馈" },
     ],
   },
   {
@@ -338,8 +373,6 @@ const PROJECTS = [
     ],
     tech: ["钉钉小程序", "钉钉开放接口", "Vue"],
     shots: [
-      { type: "mobile", title: "费用报销审批流" },
-      { type: "mobile", title: "采购管理与投诉处理" },
     ],
   },
 ];

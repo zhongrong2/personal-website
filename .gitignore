@@ -1,0 +1,12 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+*.log
+
+# 编辑器
+.vscode/
+.idea/
+
+# 依赖与构建（纯静态站无构建流程，预防性声明）
+node_modules/
+dist/

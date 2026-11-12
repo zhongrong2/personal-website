@@ -13,10 +13,12 @@
   }
 
   function shotImg(project, index, cls) {
-    // 优先加载真实截图 assets/screenshots/<id>-<n>.png，失败回退仿真图
-    const real = "assets/screenshots/" + project.id + "-" + (index + 1) + ".png";
+    // 卡片封面用完整图；弹窗缩略图优先 <id>-<n>-thumb.png（tab 模块内容区），缺失回退完整图，再回退仿真图
+    const full = "assets/screenshots/" + project.id + "-" + (index + 1) + ".png";
+    const thumb = "assets/screenshots/" + project.id + "-" + (index + 1) + "-thumb.png";
     const mock = MockShot.get(project, index);
-    return '<img class="' + (cls || "") + '" loading="lazy" alt="' + project.name + '" src="' + real + '" data-mock="' + mock + '" onerror="this.onerror=null;this.src=this.dataset.mock"/>';
+    const src = cls === "pc-img" ? full : thumb;
+    return '<img class="' + (cls || "") + '" loading="lazy" alt="' + project.name + '" src="' + src + '" data-full="' + full + '" data-mock="' + mock + '" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=this.dataset.full;}else{this.onerror=null;this.src=this.dataset.mock;}"/>';
   }
 
   /* ---------- 导航 ---------- */
@@ -116,16 +118,23 @@
 
   function projectCard(p) {
     const isMini = p.cat.indexOf("mobile") >= 0 && !p.highlights;
+    const hasShots = p.shots && p.shots.length > 0;
+    const tags = hasShots
+      ? p.shots.map(function (s) { return '<span class="tag">' + s.title.split(" · ")[0] + "</span>"; }).join("")
+      : p.tech.slice(0, 4).map(function (t) { return '<span class="tag">' + t + "</span>"; }).join("");
     return '<article class="project-card reveal" data-id="' + p.id + '" data-cat="' + p.cat.join(" ") + '" style="--accent:' + p.accent + '">' +
-      '<div class="pc-shot">' + shotImg(p, 0, "pc-img") +
-      '<div class="pc-overlay"><span class="pc-view">查看详情 →</span></div>' +
-      '<span class="pc-badge">' + (isMini ? (p.sub || "多端项目") : (p.role || "")) + "</span></div>" +
+      (hasShots
+        ? '<div class="pc-shot">' + shotImg(p, 0, "pc-img") +
+          '<div class="pc-overlay"><span class="pc-view">查看详情 →</span></div>' +
+          '<span class="pc-badge">' + (isMini ? (p.sub || "多端项目") : (p.role || "")) + "</span></div>"
+        : "") +
       '<div class="pc-body">' +
       "<h3>" + p.name + "</h3>" +
       (p.sub ? '<div class="pc-sub">' + p.sub + " · " + p.period + "</div>" : '<div class="pc-sub">' + p.period + "</div>") +
       '<p class="pc-summary">' + (p.summary || "") + "</p>" +
-      '<div class="pc-tags">' + p.shots.map(function (s) { return '<span class="tag">' + s.title.split(" · ")[0] + "</span>"; }).join("") + "</div>" +
-      '<div class="pc-foot"><span class="pc-count">' + p.shots.length + ' 张重点页面截图</span><span class="pc-more">查看详情 →</span></div>' +
+      '<div class="pc-tags">' + tags + "</div>" +
+      '<div class="pc-foot">' + (hasShots ? '<span class="pc-count">' + p.shots.length + " 张重点页面截图</span>" : "") +
+      '<span class="pc-more">查看详情 →</span></div>' +
       "</div></article>";
   }
 
@@ -180,9 +189,11 @@
       '<div class="modal-head" style="--accent:' + p.accent + '">' +
       '<span class="modal-kicker">' + p.period + (p.role ? " · " + p.role : "") + "</span>" +
       "<h2>" + p.name + (p.sub ? '<span class="modal-sub">' + p.sub + "</span>" : "") + "</h2></div>" +
-      '<div class="modal-shots">' + p.shots.map(function (s, i) {
-        return '<figure class="shot-frame" style="--accent:' + p.accent + '">' + shotImg(p, i) + "<figcaption>" + s.title + "</figcaption></figure>";
-      }).join("") + "</div>" +
+      (p.shots && p.shots.length
+        ? '<div class="modal-shots">' + p.shots.map(function (s, i) {
+            return '<figure class="shot-frame" style="--accent:' + p.accent + '">' + shotImg(p, i) + "<figcaption>" + s.title + "</figcaption></figure>";
+          }).join("") + "</div>"
+        : "") +
       '<div class="modal-sec"><h4>技术栈</h4><div class="skill-tags">' + p.tech.map(function (t) { return '<span class="tag accent">' + t + "</span>"; }).join("") + "</div></div>" +
       body;
 
@@ -217,7 +228,7 @@
   function lbShow() {
     const img = lbList[lbIndex];
     if (!img) return;
-    $("#lightboxImg").src = img.src;
+    $("#lightboxImg").src = img.dataset.full || img.src;   // 灯箱始终展示完整原图
     $("#lightboxImg").alt = img.alt || "";
     $("#lightboxCap").textContent = img.alt || "";
     $("#lbPrev").disabled = lbIndex <= 0;
