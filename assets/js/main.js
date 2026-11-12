@@ -13,12 +13,12 @@
   }
 
   function shotImg(project, index, cls) {
-    // 卡片封面用完整图；弹窗缩略图优先 <id>-<n>-thumb.webp（tab 模块内容区），缺失回退完整图，再回退仿真图
+    // 一律先加载 600 宽缩略图（卡片封面与弹窗网格共用）：<id>-<n>-thumb.webp
+    // 缺失回退完整图（data-full），再回退仿真图；完整图只在灯箱里按需加载
     const full = "assets/screenshots/" + project.id + "-" + (index + 1) + ".webp";
     const thumb = "assets/screenshots/" + project.id + "-" + (index + 1) + "-thumb.webp";
     const mock = MockShot.get(project, index);
-    const src = cls === "pc-img" ? full : thumb;
-    return '<img class="' + (cls || "") + '" loading="lazy" alt="' + project.name + '" src="' + src + '" data-full="' + full + '" data-mock="' + mock + '" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=this.dataset.full;}else{this.onerror=null;this.src=this.dataset.mock;}"/>';
+    return '<img class="' + (cls || "") + '" loading="lazy" decoding="async" alt="' + project.name + '" src="' + thumb + '" data-full="' + full + '" data-mock="' + mock + '" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=this.dataset.full;}else{this.onerror=null;this.src=this.dataset.mock;}"/>';
   }
 
   /* ---------- 导航 ---------- */
@@ -200,6 +200,14 @@
     $("#modal").classList.add("open");
     document.body.style.overflow = "hidden";
     $("#modalClose").focus();
+
+    // 空闲时预取该项目的大图，点开灯箱即可秒开
+    if (p.shots && p.shots.length) {
+      const idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 300); };
+      idle(function () {
+        p.shots.forEach(function (s, i) { lbPreloadSrc("assets/screenshots/" + p.id + "-" + (i + 1) + ".webp"); });
+      });
+    }
   }
 
   function closeModal() {
@@ -223,17 +231,33 @@
 
   /* ---------- 大图预览（支持左右切换） ---------- */
 
-  let lbList = [], lbIndex = 0;
+  let lbList = [], lbIndex = 0, lbCache = {};
+
+  // 预加载指定大图，切换时不用等网络
+  function lbPreloadSrc(url) {
+    if (!url || lbCache[url]) return;
+    lbCache[url] = new Image();
+    lbCache[url].src = url;
+  }
+
+  function lbPreload(i) {
+    const img = lbList[i];
+    if (!img) return;
+    lbPreloadSrc(img.dataset.full || img.src);
+  }
 
   function lbShow() {
     const img = lbList[lbIndex];
     if (!img) return;
-    $("#lightboxImg").src = img.dataset.full || img.src;   // 灯箱始终展示完整原图
+    const url = img.dataset.full || img.src;   // 灯箱始终展示完整原图
+    if ($("#lightboxImg").getAttribute("src") !== url) $("#lightboxImg").src = url;
     $("#lightboxImg").alt = img.alt || "";
     $("#lightboxCap").textContent = img.alt || "";
     $("#lbPrev").disabled = lbIndex <= 0;
     $("#lbNext").disabled = lbIndex >= lbList.length - 1;
     $("#lbCount").textContent = (lbIndex + 1) + " / " + lbList.length;
+    lbPreload(lbIndex - 1);
+    lbPreload(lbIndex + 1);
   }
 
   function openLightbox(list, index) {
