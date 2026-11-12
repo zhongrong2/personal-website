@@ -13,9 +13,9 @@
   }
 
   function shotImg(project, index, cls) {
-    // 卡片封面用完整图；弹窗缩略图优先 <id>-<n>-thumb.png（tab 模块内容区），缺失回退完整图，再回退仿真图
-    const full = "assets/screenshots/" + project.id + "-" + (index + 1) + ".png";
-    const thumb = "assets/screenshots/" + project.id + "-" + (index + 1) + "-thumb.png";
+    // 卡片封面用完整图；弹窗缩略图优先 <id>-<n>-thumb.webp（tab 模块内容区），缺失回退完整图，再回退仿真图
+    const full = "assets/screenshots/" + project.id + "-" + (index + 1) + ".webp";
+    const thumb = "assets/screenshots/" + project.id + "-" + (index + 1) + "-thumb.webp";
     const mock = MockShot.get(project, index);
     const src = cls === "pc-img" ? full : thumb;
     return '<img class="' + (cls || "") + '" loading="lazy" alt="' + project.name + '" src="' + src + '" data-full="' + full + '" data-mock="' + mock + '" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src=this.dataset.full;}else{this.onerror=null;this.src=this.dataset.mock;}"/>';
